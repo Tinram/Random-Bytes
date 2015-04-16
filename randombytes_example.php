@@ -5,12 +5,16 @@
 * Martin Latter, 13/04/15
 */
 
-############################################
+###################################################
 mb_internal_encoding('UTF-8');	
 mb_http_output('UTF-8');
+header('Content-Type: text/html; charset=utf-8');
+###################################################
+
+###################################################
 require('randombytes.class.php');
 use CopySense\RandomBytes\RandomBytes;
-############################################
+###################################################
 
 
 $aRandGenMethods = ['mcrypt', 'openssl', 'urandom'];
@@ -30,9 +34,6 @@ function generateTable(array $aData) {
 		</table>
 	';
 }
-
-
-header('Content-Type: text/html; charset=utf-8');
 
 ?><!DOCTYPE html>
 
@@ -76,7 +77,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 		<div id="frbcont">
 
-			<form id="frb" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+			<form id="frb" method="post" action="<?php echo htmlspecialchars(strip_tags($_SERVER['PHP_SELF']), ENT_QUOTES, 'UTF-8'); ?>">
 
 				<div>
 
@@ -85,12 +86,16 @@ header('Content-Type: text/html; charset=utf-8');
 					<?php
 
 						$iChars = ($bSubmitted) ? (int) $_POST['chars'] : 0;
+						$sSelected = '';
+						$sOut = '';
 
 						for ($i = 16; $i < 72; $i += 8) {
 
 							$sSelected = ($i !== $iChars) ? '' : ' selected';
-							echo '<option value="' . $i . '"' . $sSelected . '>' . $i . '</option>';
+							$sOut .= '<option value="' . $i . '"' . $sSelected . '>' . $i . '</option>';
 						}
+
+						echo $sOut;
 					?>
 
 					</select>
@@ -99,11 +104,15 @@ header('Content-Type: text/html; charset=utf-8');
 					<select id="genmethod" name="genmethod">
 					<?php
 
+						$sOut = '';
+
 						foreach ($aRandGenMethods as $sMethod) {
 
 							$sSelected = ($bSubmitted && $_POST['genmethod'] === $sMethod) ? ' selected' : '';
-							echo '<option value="' . $sMethod . '"' . $sSelected . '>' . $sMethod . '</option>';
+							$sOut .= '<option value="' . $sMethod . '"' . $sSelected . '>' . $sMethod . '</option>';
 						}
+
+						echo $sOut;
 					?>
 
 					</select>
