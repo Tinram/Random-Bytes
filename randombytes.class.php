@@ -3,6 +3,8 @@
 
 namespace CopySense\RandomBytes;
 
+use RuntimeException;
+
 
 class RandomBytes {
 
@@ -58,14 +60,14 @@ class RandomBytes {
 		try {
 
 			if (version_compare(phpversion(), '5.3', '<')) {
-				throw new \RuntimeException(__CLASS__ . '{} cannot run properly on PHP versions less than version 5.3');
+				throw new RuntimeException(__CLASS__ . '{} cannot run properly on PHP versions less than version 5.3');
 			}
 
 			if ( ! is_int($iLength) || $iLength < 8) { # minimum of 8 bytes to be generated
-				throw new \RuntimeException(__METHOD__ . '() - $iLength argument must be 8 characters or more.');
+				throw new RuntimeException(__METHOD__ . '() - $iLength argument must be 8 characters or more.');
 			}
 		}
-		catch (\Exception $e) {
+		catch (RuntimeException $e) {
 			self::reportException($e);
 		}
 
@@ -97,10 +99,10 @@ class RandomBytes {
 				$sRaw = mcrypt_create_iv($iLength, MCRYPT_DEV_URANDOM);
 
 				if ( ! $sRaw) {
-					throw new \RuntimeException(__METHOD__ . '() - could not create random bytes using mcrypt_create_iv().');
+					throw new RuntimeException(__METHOD__ . '() - could not create random bytes using mcrypt_create_iv().');
 				}
 			}
-			catch (\Exception $e) {
+			catch (RuntimeException $e) {
 				self::reportException($e);
 			}
 		}
@@ -109,16 +111,16 @@ class RandomBytes {
 			try {
 
 				if ( ! function_exists('openssl_random_pseudo_bytes')) {
-					throw new \RuntimeException(__METHOD__ . '() - OpenSSL bytes generation not possible using this PHP installation.');
+					throw new RuntimeException(__METHOD__ . '() - OpenSSL bytes generation not possible using this PHP installation.');
 				}
 
 				$sRaw = openssl_random_pseudo_bytes($iLength, $bStrong);
 
 				if ( ! $bStrong) {
-					throw new \RuntimeException(__METHOD__ . '() - No \'secure\' generation of random bytes by OpenSSL.');
+					throw new RuntimeException(__METHOD__ . '() - No \'secure\' generation of random bytes by OpenSSL.');
 				}
 			}
-			catch (\Exception $e) {
+			catch (RuntimeException $e) {
 				self::reportException($e);
 			}
 		}
@@ -131,14 +133,14 @@ class RandomBytes {
 					$sRaw = file_get_contents('/dev/urandom', FALSE, NULL, 0, $iLength);
 
 					if ( ! $sRaw) {
-						throw new \RuntimeException(__METHOD__ . '() - no creation of random bytes possible using /dev/urandom.');
+						throw new RuntimeException(__METHOD__ . '() - no creation of random bytes possible using /dev/urandom.');
 					}
 				}
 				else {
-					throw new \RuntimeException(__METHOD__ . '() - Windows does not have /dev/urandom available.');
+					throw new RuntimeException(__METHOD__ . '() - Windows does not have /dev/urandom available.');
 				}
 			}
-			catch (\Exception $e) {
+			catch (RuntimeException $e) {
 				self::reportException($e);
 			}
 		}
@@ -146,9 +148,9 @@ class RandomBytes {
 
 			try {
 
-				throw new \RuntimeException(__METHOD__ . '() - unknown $sGenMethod argument passed.');
+				throw new RuntimeException(__METHOD__ . '() - unknown $sGenMethod argument passed.');
 			}
-			catch (\Exception $e) {
+			catch (RuntimeException $e) {
 				self::reportException($e);
 			}
 		}
@@ -187,12 +189,12 @@ class RandomBytes {
 
 
 	/**
-	* Report Exceptions generated in this class.
+	* Report exceptions generated in this class.
 	*
-	* @param    Exception $e
+	* @param    RuntimeException $e
 	*/
 
-	private static function reportException(\Exception $e) {
+	private static function reportException(RuntimeException $e) {
 
 		echo $e->getMessage() . self::LINE_SEPARATOR . '(' . $e->getfile() . ', line ' . $e->getline() . ')' . self::LINE_SEPARATOR;
 
