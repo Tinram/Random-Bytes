@@ -9,36 +9,36 @@ use RuntimeException;
 class RandomBytes {
 
 	/**
-	* Static class to generate cryptographically-strong random bytes from different available sources of entropy.
-	*
-	* Coded for PHP 5.4+
-	* Not usable on Windows PHP < 5.3.0
-	*
-	* Example usage:
-	*                require('randombytes.class.php');
-	*                use CopySense\RandomBytes\RandomBytes;
-	*                $aData = RandBytes::generate(16, 'openssl');
-	*                var_dump($aData);
-	*
-	* Linux / Unix: choose your preferred source - /dev/urandom is 'suitable for most cryptographic purposes'.  mcrypt_create_iv() is held by some in higher regard than OpenSSL. 
-	* Windows: mcrypt_create_iv() can create visible patterns in images on Windows.  No /dev/urandom available.  CryptGenRandom accessibility?  OpenSSL is probably the best option.
-	*
-	* References:
-	*                http://timoh6.github.io/2013/11/05/Secure-random-numbers-for-PHP-developers.html
-	*                http://php.net/manual/en/function.openssl-random-pseudo-bytes.php
-	*                http://php.net/manual/en/function.mcrypt-create-iv.php
-	*
-	*
-	* @author        Martin Latter <copysense.co.uk>
-	* @copyright     Martin Latter 13/04/2015
-	* @version       0.10
-	* @license       GNU GPL v3.0
-	* @link          https://github.com/Tinram/Random-Bytes.git
-	* @throws        RuntimeException
+		* Static class to generate cryptographically-strong random bytes from different available sources of entropy.
+		*
+		* Coded for PHP 5.4+
+		* Not usable on Windows PHP < 5.3.0
+		*
+		* Example usage:
+		*                require('randombytes.class.php');
+		*                use CopySense\RandomBytes\RandomBytes;
+		*                $aData = RandBytes::generate(16, 'openssl');
+		*                var_dump($aData);
+		*
+		* Linux / Unix: choose your preferred source - /dev/urandom is 'suitable for most cryptographic purposes'.  mcrypt_create_iv() is held by some in higher regard than OpenSSL. 
+		* Windows: mcrypt_create_iv() can create visible patterns in images on Windows.  No /dev/urandom available.  CryptGenRandom accessibility?  OpenSSL is probably the best option.
+		*
+		* References:
+		*                http://timoh6.github.io/2013/11/05/Secure-random-numbers-for-PHP-developers.html
+		*                http://php.net/manual/en/function.openssl-random-pseudo-bytes.php
+		*                http://php.net/manual/en/function.mcrypt-create-iv.php
+		*
+		*
+		* @author        Martin Latter <copysense.co.uk>
+		* @copyright     Martin Latter 13/04/2015
+		* @version       0.10
+		* @license       GNU GPL v3.0
+		* @link          https://github.com/Tinram/Random-Bytes.git
+		* @throws        RuntimeException
 	*/
 
 
-	const LINE_SEPARATOR = '<br>'; # <br> for server-based, "\n" for cmd-line usage
+	const LINE_SEPARATOR = '<br>'; # <br> for server-based, "\n" for command-line usage
 
 
 	public function __construct() {
@@ -47,12 +47,12 @@ class RandomBytes {
 
 
 	/**
-	* Initial checks, call generator method.
-	*
-	* @param    integer $iLength, length of string of bytes
-	* @param    string $sByteGenMethod: 'mcrypt', 'openssl', 'urandom'
-	*
-	* @return   array, byte data and hashes of byte data
+		* Initial checks, call generator method.
+		*
+		* @param    integer $iLength, length of string of bytes
+		* @param    string $sByteGenMethod: 'mcrypt', 'openssl', 'urandom'
+		*
+		* @return   array, byte data and hashes of byte data
 	*/
 
 	public static function generate($iLength = 1, $sByteGenMethod = 'mcrypt') {
@@ -77,14 +77,14 @@ class RandomBytes {
 
 
 	/**
-	* Attempts to generate random byte data and process the data into different forms and hashes.
-	*
-	* Note that both mcrypt_create_iv() and openssl_random_pseudo_bytes() can generate multi-bytes (can check with mb_strlen()).
-	*
-	* @param    integer $iLength, length of string of bytes
-	* @param    string $sGenMethod: 'mcrypt', 'openssl', 'urandom'
-	*
-	* @return   array, byte data and hashes of byte data
+		* Attempts to generate random byte data and process the data into different forms and hashes.
+		*
+		* Note that both mcrypt_create_iv() and openssl_random_pseudo_bytes() can generate multi-bytes (can check with mb_strlen()).
+		*
+		* @param    integer $iLength, length of string of bytes
+		* @param    string $sGenMethod: 'mcrypt', 'openssl', 'urandom'
+		*
+		* @return   array, byte data and hashes of byte data
 	*/
 
 	private static function generateRandomData($iLength, $sGenMethod) {
@@ -189,9 +189,9 @@ class RandomBytes {
 
 
 	/**
-	* Report exceptions generated in this class.
-	*
-	* @param    RuntimeException $e
+		* Report exceptions generated in this class.
+		*
+		* @param    RuntimeException $e
 	*/
 
 	private static function reportException(RuntimeException $e) {

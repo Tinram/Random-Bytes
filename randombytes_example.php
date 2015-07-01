@@ -1,8 +1,8 @@
 ﻿<?php
 
 /**
-* Example web server usage of RandomBytes class.
-* Martin Latter, 13/04/15
+	* Example web server usage of RandomBytes class.
+	* Martin Latter, 13/04/15
 */
 
 ###################################################
