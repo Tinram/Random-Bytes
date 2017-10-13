@@ -5,7 +5,7 @@
 
 ## Purpose
 
-+ Create random bytes - as cryptographically-strong as possible - from available sources of entropy, and display in different output formats.
+Create random bytes - as cryptographically-strong as possible - from available sources of entropy, and display in different output formats.
 
 
 ## Sources
@@ -30,7 +30,7 @@ Linux's */dev/urandom* entropy source is a non-blocking generator 'suitable for 
 
 OpenBSD and FreeBSD have non-blocking */dev/random* implementations.
 
-random\_bytes() was added to PHP version 7.0
+random\_bytes() function was added to PHP version 7.0
 
 On Windows, the implementation of MCrypt is known to have problems, which I confirmed as patterning present in images (instead of non-patterned noise) created from MCrypt-generated data (XAMPP, PHP 5.4).
 
@@ -46,4 +46,4 @@ Random Bytes is released under the [GPL v.3](https://www.gnu.org/licenses/gpl-3.
 
 ![alt](http://www.phpclasses.org/award/innovation/nominee.gif "PHP Classes Innovation Award")
 
-Nominated for a [PHP Classes Innovation Award ](http://www.phpclasses.org/award/innovation/) ([May 2015] (http://www.phpclasses.org/package/9146-PHP-Generate-cryptographically-strong-random-bytes.html)).
+Nominated for a [PHP Classes Innovation Award ](http://www.phpclasses.org/award/innovation/) ([May 2015](http://www.phpclasses.org/package/9146-PHP-Generate-cryptographically-strong-random-bytes.html)).
