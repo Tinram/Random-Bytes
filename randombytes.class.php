@@ -38,7 +38,7 @@ class RandomBytes {
 		*
 		* @author        Martin Latter <copysense.co.uk>
 		* @copyright     Martin Latter 13/04/2015
-		* @version       0.12
+		* @version       0.13
 		* @license       GNU GPL v3.0
 		* @link          https://github.com/Tinram/Random-Bytes.git
 		* @throws        RuntimeException
@@ -67,18 +67,20 @@ class RandomBytes {
 		# command-line or server line-break output
 		self::$sLineBreak = (PHP_SAPI === 'cli') ? PHP_EOL : '<br>';
 
+		$iLength = (int) $iLength; # in case of string number being passed
+
 		try {
 
 			if (version_compare(phpversion(), '5.3', '<')) {
 				throw new RuntimeException(__CLASS__ . '{} cannot run properly on PHP versions less than version 5.3');
 			}
 
-			if ( ! is_int($iLength) || $iLength < 8) { # minimum of 8 bytes to be generated
+			if ($iLength < 8) { # minimum of 8 bytes to be generated
 				throw new RuntimeException(__METHOD__ . '() - $iLength argument must be 8 characters or more.');
 			}
 		}
 		catch (RuntimeException $e) {
-			self::reportException($e);
+			die(self::reportException($e));
 		}
 
 		return self::generateRandomData($iLength, $sByteGenMethod);
@@ -118,7 +120,7 @@ class RandomBytes {
 				}
 			}
 			catch (RuntimeException $e) {
-				self::reportException($e);
+				die(self::reportException($e));
 			}
 		}
 		else if ($sSource === 'urandom') {
@@ -138,7 +140,7 @@ class RandomBytes {
 				}
 			}
 			catch (RuntimeException $e) {
-				self::reportException($e);
+				die(self::reportException($e));
 			}
 		}
 		else if ($sSource === 'random_bytes') {
@@ -153,7 +155,7 @@ class RandomBytes {
 				}
 			}
 			catch (RuntimeException $e) {
-				self::reportException($e);
+				die(self::reportException($e));
 			}
 		}
 		else if ($sSource === 'mcrypt') {
@@ -167,7 +169,7 @@ class RandomBytes {
 				}
 			}
 			catch (RuntimeException $e) {
-				self::reportException($e);
+				die(self::reportException($e));
 			}
 		}
 		else {
@@ -176,7 +178,7 @@ class RandomBytes {
 				throw new RuntimeException(__METHOD__ . '() - unknown $sSource argument passed.');
 			}
 			catch (RuntimeException $e) {
-				self::reportException($e);
+				die(self::reportException($e));
 			}
 		}
 
@@ -222,7 +224,7 @@ class RandomBytes {
 
 	private static function reportException(RuntimeException $e) {
 
-		echo $e->getMessage() . self::$sLineBreak . '(' . $e->getfile() . ', line ' . $e->getline() . ')' . self::$sLineBreak;
+		return $e->getMessage() . self::$sLineBreak . '(' . $e->getfile() . ', line ' . $e->getline() . ')' . self::$sLineBreak;
 
 	} # end reportException()
 
