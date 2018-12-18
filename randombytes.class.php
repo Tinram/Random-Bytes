@@ -14,6 +14,9 @@ class RandomBytes {
 		* Coded for PHP 5.4+
 		* Not usable on Windows PHP < 5.3.0
 		*
+		* Description:
+		*                array RandomBytes::generate(int $length, string $source);
+		*
 		* Example usage:
 		*                require('randombytes.class.php');
 		*                use CopySense\RandomBytes\RandomBytes;
@@ -35,7 +38,7 @@ class RandomBytes {
 		*
 		* @author        Martin Latter <copysense.co.uk>
 		* @copyright     Martin Latter 13/04/2015
-		* @version       0.11
+		* @version       0.12
 		* @license       GNU GPL v3.0
 		* @link          https://github.com/Tinram/Random-Bytes.git
 		* @throws        RuntimeException
@@ -53,7 +56,7 @@ class RandomBytes {
 	/**
 		* Initial checks, call generator method.
 		*
-		* @param    integer $iLength, length of string of bytes
+		* @param    integer $iLength, number of bytes
 		* @param    string $sByteGenMethod: 'openssl', 'urandom', 'random_bytes', 'mcrypt'
 		*
 		* @return   array, byte data and hashes of byte data
@@ -88,18 +91,19 @@ class RandomBytes {
 		*
 		* Note that both mcrypt_create_iv() and openssl_random_pseudo_bytes() can generate multi-bytes (can check with mb_strlen()).
 		*
-		* @param    integer $iLength, length of string of bytes
-		* @param    string $sGenMethod: 'openssl', 'urandom', 'random_bytes', 'mcrypt'
+		* @param    integer $iLength, number of bytes
+		* @param    string $sSource, cryptographic source: 'openssl', 'urandom', 'random_bytes', 'mcrypt'
 		*
 		* @return   array, byte data and hashes of byte data
 	*/
 
-	private static function generateRandomData($iLength, $sGenMethod) {
+	private static function generateRandomData($iLength, $sSource) {
 
 		$sRaw = '';
 		$bStrong = FALSE;
+		$aDecimals = [];
 
-		if ($sGenMethod === 'openssl') {
+		if ($sSource === 'openssl') {
 
 			try {
 
@@ -117,7 +121,7 @@ class RandomBytes {
 				self::reportException($e);
 			}
 		}
-		else if ($sGenMethod === 'urandom') {
+		else if ($sSource === 'urandom') {
 
 			try {
 
@@ -137,7 +141,7 @@ class RandomBytes {
 				self::reportException($e);
 			}
 		}
-		else if ($sGenMethod === 'random_bytes') {
+		else if ($sSource === 'random_bytes') {
 
 			try {
 
@@ -152,7 +156,7 @@ class RandomBytes {
 				self::reportException($e);
 			}
 		}
-		else if ($sGenMethod === 'mcrypt') {
+		else if ($sSource === 'mcrypt') {
 
 			try {
 
@@ -169,7 +173,7 @@ class RandomBytes {
 		else {
 
 			try {
-				throw new RuntimeException(__METHOD__ . '() - unknown $sGenMethod argument passed.');
+				throw new RuntimeException(__METHOD__ . '() - unknown $sSource argument passed.');
 			}
 			catch (RuntimeException $e) {
 				self::reportException($e);
@@ -222,6 +226,6 @@ class RandomBytes {
 
 	} # end reportException()
 
-} # end {}
+}
 
 ?>
