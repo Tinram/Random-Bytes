@@ -34,7 +34,7 @@ Create random bytes &ndash; as cryptographically-strong as possible &ndash; from
 
 ```php
     require('randombytes.class.php');
-    use CopySense\RandomBytes\RandomBytes;
+    use Tinram\RandomBytes\RandomBytes;
     $aData = RandomBytes::generate(32, 'openssl');
     var_dump($aData);
 ```
