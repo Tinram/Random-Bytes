@@ -2,11 +2,8 @@
 
 require('classes/randombytes.class.php');
 
-use CopySense\RandomBytes\RandomBytes;
-
+use Tinram\RandomBytes\RandomBytes;
 
 $aData = RandomBytes::generate(32, 'openssl');
 
 var_dump($aData);
-
-?>
