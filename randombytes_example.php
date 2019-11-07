@@ -12,7 +12,7 @@ header('Content-Type: text/html; charset=utf-8');
 ###################################################
 
 ###################################################
-require('randombytes.class.php');
+require('classes/randombytes.class.php');
 use CopySense\RandomBytes\RandomBytes;
 ###################################################
 

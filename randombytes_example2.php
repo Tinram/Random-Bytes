@@ -1,6 +1,6 @@
 <?php
 
-require('randombytes.class.php');
+require('classes/randombytes.class.php');
 
 use CopySense\RandomBytes\RandomBytes;
 
