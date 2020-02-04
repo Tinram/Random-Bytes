@@ -6,6 +6,7 @@
 */
 
 ##################################################
+declare(strict_types=1);
 mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
 header('Content-Type: text/html; charset=utf-8');
@@ -17,12 +18,12 @@ use Tinram\RandomBytes\RandomBytes;
 ##################################################
 
 
-$aRandGenMethods = ['openssl', 'urandom', 'random_bytes', 'mcrypt'];
+$aRandGenMethods = ['openssl', 'urandom', 'random_bytes'];
 
 $bSubmitted = (isset($_POST['submit_check'])) ? true : false;
 
 
-function generateTable(array $aData)
+function generateTable(array $aData): void
 {
     echo '
         <table>

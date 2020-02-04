@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 require('classes/randombytes.class.php');
 
 use Tinram\RandomBytes\RandomBytes;
